@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ya-Hsin Hung Lab — Human-centered design, information visualization, Human-Centered AI, and cognitive engineering at National Cheng Kung University.">
+  <title>Ya-Hsin Hung Lab — Human First. Technology Follows.</title>
+
+  <!-- No external CSS or JavaScript dependencies are required. -->
+  <style>
+    :root {
+      --bg: #f5f4ef;
+      --paper: #fbfaf7;
+      --ink: #111111;
+      --muted: #696863;
+      --line: #d9d7d0;
+      --accent: #d7ff3f;
+      --dark: #111111;
+      --dark-muted: #aaa99f;
+      --max: 1180px;
+      --radius: 2px;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+              Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: var(--sans);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(calc(100% - 48px), var(--max));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(245,244,239,.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      align-items: center;
+      font-size: .88rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      align-items: center;
+      padding: 72px 0 82px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 70px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: clamp(3.4rem, 7vw, 6.4rem);
+      line-height: .92;
+      letter-spacing: -.075em;
+      margin: 0;
+      max-width: 900px;
+      font-weight: 800;
+    }
+
+    .hero-tagline {
+      margin: 26px 0 0;
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 1.8vw, 1.65rem);
+      line-height: 1.3;
+      max-width: 690px;
+    }
+
+    .hero-meta {
+      align-self: end;
+      border-top: 1px solid var(--ink);
+      padding-top: 16px;
+      font-size: .92rem;
+    }
+    .hero-meta strong {
+      display: block;
+      font-size: 1.02rem;
+      margin-bottom: 3px;
+    }
+    .hero-meta span { color: var(--muted); }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border: 1px solid var(--ink);
+      text-decoration: none;
+      font-size: .84rem;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+    .button.primary {
+      background: var(--ink);
+      color: #fff;
+    }
+    .button.primary:hover { background: #333; }
+    .button.secondary:hover { background: var(--accent); }
+
+    section { padding: 88px 0; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      margin-bottom: 44px;
+    }
+    .section-label {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 700;
+    }
+    .section-title {
+      font-size: clamp(2rem, 3.8vw, 3.8rem);
+      line-height: 1.02;
+      letter-spacing: -.055em;
+      margin: 0;
+      max-width: 800px;
+    }
+    .section-intro {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .research-question {
+      background: var(--dark);
+      color: white;
+      padding: 52px 58px;
+      margin-bottom: 1px;
+    }
+    .research-question .label {
+      color: var(--dark-muted);
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      font-size: .7rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    .research-question h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(1.8rem, 3.2vw, 3.2rem);
+      line-height: 1.12;
+      letter-spacing: -.03em;
+      margin: 0;
+      max-width: 920px;
+    }
+
+    .research-text {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      padding: 38px 0 52px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .keyword-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .keyword {
+      padding: 34px 28px 40px 0;
+      border-right: 1px solid var(--line);
+    }
+    .keyword:not(:first-child) { padding-left: 28px; }
+    .keyword:last-child { border-right: 0; }
+    .keyword-number {
+      font-size: .7rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .keyword h3 {
+      margin: 0 0 14px;
+      font-size: 1.35rem;
+      letter-spacing: -.025em;
+    }
+    .keyword p { margin: 0; color: var(--muted); font-size: .93rem; }
+
+    .dark-section {
+      background: var(--dark);
+      color: #fff;
+    }
+    .dark-section .section-label { color: var(--dark-muted); }
+    .dark-section .section-title { color: #fff; }
+    .dark-section .section-intro { color: var(--dark-muted); }
+
+    .project-list {
+      border-top: 1px solid #3b3b38;
+    }
+    .project {
+      display: grid;
+      grid-template-columns: 90px 1fr 170px;
+      gap: 30px;
+      padding: 38px 0;
+      border-bottom: 1px solid #3b3b38;
+    }
+    .project-no { color: var(--dark-muted); font-size: .78rem; }
+    .project h3 {
+      margin: 0 0 10px;
+      font-size: clamp(1.25rem, 1.9vw, 1.75rem);
+      line-height: 1.18;
+      letter-spacing: -.03em;
+    }
+    .project p {
+      margin: 0;
+      max-width: 680px;
+      color: var(--dark-muted);
+      font-size: .95rem;
+    }
+    .project-meta {
+      text-align: right;
+      color: var(--dark-muted);
+      font-size: .78rem;
+      line-height: 1.5;
+    }
+    .project-meta strong {
+      display: block;
+      color: #fff;
+      font-size: .8rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 80px;
+    }
+    .about-copy {
+      font-size: 1.15rem;
+      max-width: 690px;
+    }
+    .about-copy p { margin-top: 0; margin-bottom: 22px; }
+    .about-copy strong { font-weight: 750; }
+
+    .cv-block + .cv-block { margin-top: 55px; }
+    .cv-block h3 {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      margin: 0 0 18px;
+    }
+    .cv-item {
+      padding: 16px 0;
+      border-top: 1px solid var(--line);
+    }
+    .cv-item strong { display: block; }
+    .cv-item span { color: var(--muted); font-size: .88rem; }
+
+    .teaching-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+    }
+    .course-group h3 {
+      margin: 0 0 20px;
+      font-size: 1.2rem;
+    }
+    .course {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+    }
+    .course a { text-decoration: none; font-weight: 650; }
+    .course a:hover { text-decoration: underline; }
+    .course span {
+      color: var(--muted);
+      font-size: .78rem;
+      white-space: nowrap;
+    }
+
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .person {
+      background: var(--paper);
+      padding: 38px;
+      min-height: 190px;
+    }
+    .person .role {
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      color: var(--muted);
+      margin-bottom: 55px;
+    }
+    .person h3 {
+      margin: 0 0 5px;
+      font-size: 1.45rem;
+      letter-spacing: -.025em;
+    }
+    .person p { margin: 0; color: var(--muted); font-size: .9rem; }
+
+    .join {
+      background: var(--accent);
+    }
+    .join-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .join h2 {
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: .96;
+      letter-spacing: -.07em;
+      margin: 0;
+    }
+    .join-copy {
+      font-size: 1.05rem;
+      max-width: 600px;
+    }
+    .join-copy p { margin-top: 0; }
+    .join-copy ul {
+      padding-left: 18px;
+      margin: 26px 0 34px;
+    }
+    .join-copy li { margin: 7px 0; }
+
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 80px 0 34px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      padding-bottom: 70px;
+    }
+    footer h2 {
+      margin: 0;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: .96;
+      letter-spacing: -.065em;
+    }
+    .contact-list {
+      border-top: 1px solid #3b3b38;
+    }
+    .contact-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 0;
+      border-bottom: 1px solid #3b3b38;
+      font-size: .9rem;
+    }
+    .contact-item span:first-child { color: var(--dark-muted); }
+    .contact-item a { color: white; text-decoration: none; }
+    .contact-item a:hover { text-decoration: underline; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      border-top: 1px solid #3b3b38;
+      padding-top: 20px;
+      color: var(--dark-muted);
+      font-size: .75rem;
+    }
+
+    @media (max-width: 850px) {
+      .container { width: min(calc(100% - 32px), var(--max)); }
+      .nav { min-height: 64px; }
+      .nav-links { gap: 13px; font-size: .76rem; }
+      .hero { min-height: auto; padding: 72px 0; }
+      .hero-grid, .about-grid, .join-grid, .footer-grid { grid-template-columns: 1fr; gap: 45px; }
+      h1 { font-size: clamp(3.2rem, 14vw, 5.2rem); }
+      .hero-meta { max-width: 330px; }
+      .section-head { grid-template-columns: 1fr; gap: 18px; margin-bottom: 40px; }
+      .research-text { grid-template-columns: 1fr; gap: 25px; }
+      .keyword-grid { grid-template-columns: 1fr; }
+      .keyword, .keyword:not(:first-child) {
+        padding: 28px 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .keyword:last-child { border-bottom: 0; }
+      .research-question { padding: 45px 28px; }
+      .project { grid-template-columns: 42px 1fr; gap: 15px; }
+      .project-meta { grid-column: 2; text-align: left; }
+      .teaching-grid { grid-template-columns: 1fr; gap: 45px; }
+      .people-grid { grid-template-columns: 1fr; }
+      section { padding: 68px 0; }
+    }
+
+    @media (max-width: 540px) {
+      .nav-links a:nth-child(2),
+      .nav-links a:nth-child(3) { display: none; }
+      .hero-tagline { font-size: 1.35rem; }
+      .course { display: block; }
+      .course span { display: block; margin-top: 4px; }
+      .footer-bottom { display: block; }
+      .footer-bottom span { display: block; margin-top: 8px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top">YA-HSIN HUNG LAB</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#research">Research</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#people">People</a>
+        <a href="#join">Join</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Department of Industrial Design · National Cheng Kung University</div>
+          <h1>Human First.<br>Technology Follows.</h1>
+          <p class="hero-tagline">
+            Designing experiences at the intersection of human cognition,
+            interaction, and intelligent systems.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#research">Explore Research</a>
+            <a class="button secondary" href="#join">Join the Lab</a>
+          </div>
+        </div>
+        <div class="hero-meta">
+          <strong>Ya-Hsin Hung</strong>
+          <span>Assistant Professor<br>Department of Industrial Design<br>National Cheng Kung University</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="research">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">01 / Research</div>
+          <div>
+            <h2 class="section-title">Design, cognition, and intelligent systems.</h2>
+            <p class="section-intro">
+              Our research explores how designed experiences influence human cognition
+              and behavior, and how these insights can be used to create interactions
+              that serve different human needs and goals.
+            </p>
+          </div>
+        </div>
+
+        <div class="research-question">
+          <div class="label">Research Question</div>
+          <h3>How does design shape what people think, feel, and do—often without them noticing?</h3>
+        </div>
+
+        <div class="research-text">
+          <p>
+            Our work starts with people: understanding how they perceive information,
+            make decisions, interact with technology, and respond to different forms
+            of designed experiences.
+          </p>
+          <p>
+            We use design, empirical research, and experimentation to develop and
+            evaluate new ways of interacting with intelligent and complex systems.
+          </p>
+        </div>
+
+        <div class="keyword-grid">
+          <article class="keyword">
+            <div class="keyword-number">01</div>
+            <h3>Information Visualization</h3>
+            <p>Designing visual representations and interactive interfaces that help people understand complex information, interpret data, and make sense of AI-generated content.</p>
+          </article>
+          <article class="keyword">
+            <div class="keyword-number">02</div>
+            <h3>Human-Centered AI</h3>
+            <p>Exploring how AI systems can be designed around human needs, cognition, expectations, and decision-making.</p>
+          </article>
+          <article class="keyword">
+            <div class="keyword-number">03</div>
+            <h3>Cognitive Engineering</h3>
+            <p>Applying knowledge of human cognition and behavior to the design and evaluation of complex interactive systems.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="dark-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">02 / Current Research</div>
+          <div>
+            <h2 class="section-title">Current research projects.</h2>
+            <p class="section-intro">
+              Our current work focuses on visualization, human-AI interaction,
+              trust, emotion, and the design of AI-mediated experiences.
+            </p>
+          </div>
+        </div>
+
+        <div class="project-list">
+          <article class="project">
+            <div class="project-no">01</div>
+            <div>
+              <h3>Designing Visualization-Based Interaction Interfaces for Human-AI Trust Calibration</h3>
+              <p>
+                This project explores how visualization-based interaction interfaces
+                can help users better understand AI systems and calibrate their trust
+                in AI-generated information and recommendations.
+              </p>
+            </div>
+            <div class="project-meta">
+              <strong>NSTC-funded Research</strong>
+              2025–2027<br>$1,828,077
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-no">02</div>
+            <div>
+              <h3>Mitigating Sycophantic Bias in AI Applications through Emotion-Adaptive Visualization Interfaces</h3>
+              <p>
+                This project investigates how emotion-adaptive visualization interfaces
+                can be used to mitigate sycophantic bias in AI applications and support
+                more effective human-AI interaction.
+              </p>
+            </div>
+            <div class="project-meta">
+              <strong>NSTC-funded Research</strong>
+              2026–2027<br>$782,376
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">03 / About</div>
+          <div>
+            <h2 class="section-title">A background across design, human factors, cognition, and AI.</h2>
+          </div>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-copy">
+            <p>
+              I am an Assistant Professor in the Department of Industrial Design
+              at National Cheng Kung University.
+            </p>
+            <p>
+              My background bridges <strong>industrial design, human factors,
+              cognitive science, and artificial intelligence</strong>. I received
+              my Ph.D. in Industrial Engineering with a focus on Human Factors from
+              Purdue University, following an M.S. and B.S. in Industrial Design
+              from National Cheng Kung University.
+            </p>
+            <p>
+              Before joining NCKU, I worked as a Principal Engineer in the AI
+              Solution Division at TSMC, where I worked on AI/ML solutions for
+              semiconductor manufacturing. I previously spent four years as a
+              Postdoctoral Researcher in the Department of Psychological Science
+              at Purdue University.
+            </p>
+            <p>
+              This interdisciplinary background shapes how I approach research:
+              <strong>starting with people, understanding how they think and behave,
+              and using design and technology to create better experiences.</strong>
+            </p>
+          </div>
+
+          <div>
+            <div class="cv-block">
+              <h3>Education</h3>
+              <div class="cv-item">
+                <strong>Ph.D. in Industrial Engineering · Human Factors</strong>
+                <span>Purdue University</span>
+              </div>
+              <div class="cv-item">
+                <strong>M.S. in Industrial Design · Ergonomics &amp; Interaction Design</strong>
+                <span>National Cheng Kung University</span>
+              </div>
+              <div class="cv-item">
+                <strong>B.S. in Industrial Design</strong>
+                <span>National Cheng Kung University</span>
+              </div>
+            </div>
+
+            <div class="cv-block">
+              <h3>Experience</h3>
+              <div class="cv-item">
+                <strong>Assistant Professor</strong>
+                <span>Department of Industrial Design, National Cheng Kung University · Present</span>
+              </div>
+              <div class="cv-item">
+                <strong>Principal Engineer</strong>
+                <span>AI Solution Division, TSMC · 2023–2025</span>
+              </div>
+              <div class="cv-item">
+                <strong>Postdoctoral Researcher</strong>
+                <span>Department of Psychological Science, Purdue University · 2019–2023</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="teaching">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">04 / Teaching</div>
+          <div>
+            <h2 class="section-title">Connecting design practice with research and emerging technologies.</h2>
+          </div>
+        </div>
+
+        <div class="teaching-grid">
+          <div class="course-group">
+            <h3>Graduate Courses</h3>
+            <div class="course">
+              <a href="https://course-map.ncku.edu.tw/?c=portal%26dept=P3%26cono=P364500%26lang=eng" target="_blank" rel="noopener">Information Visualization for Artificial Intelligence</a>
+              <span>Graduate Elective</span>
+            </div>
+            <div class="course">
+              <a href="https://course-map.ncku.edu.tw/?c=portal%26dept=P3%26cono=P358700%26lang=eng" target="_blank" rel="noopener">Human Factors in Product Development</a>
+              <span>Graduate Elective</span>
+            </div>
+          </div>
+
+          <div class="course-group">
+            <h3>Undergraduate Courses</h3>
+            <div class="course">
+              <a href="https://course-map.ncku.edu.tw/?c=portal%26dept=F3%26cono=F312900%26lang=eng" target="_blank" rel="noopener">Basic Design</a>
+              <span>Required Course</span>
+            </div>
+            <div class="course">
+              <a href="https://course-map.ncku.edu.tw/?c=portal%26dept=F3%26cono=F330111%26lang=eng" target="_blank" rel="noopener">Industrial Design</a>
+              <span>Required Course</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="people">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">05 / People</div>
+          <div>
+            <h2 class="section-title">Graduate Students</h2>
+          </div>
+        </div>
+
+        <div class="people-grid">
+          <article class="person">
+            <div class="role">Graduate Student</div>
+            <h3>Wei-Chun Wang</h3>
+            <p>M.S. Student · 1st Year</p>
+          </article>
+          <article class="person">
+            <div class="role">Graduate Student</div>
+            <h3>Xin-Yu Wang</h3>
+            <p>M.S. Student · 1st Year</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="join" class="join">
+      <div class="container join-grid">
+        <div>
+          <div class="section-label">06 / Join the Lab</div>
+          <h2>Curious about people, design, and AI?</h2>
+        </div>
+        <div class="join-copy">
+          <p>
+            I am interested in working with students who are curious about people,
+            design, and emerging technologies.
+          </p>
+          <p>
+            Students with backgrounds or interests in <strong>industrial design,
+            HCI, human factors, cognitive science, AI, or related fields</strong>
+            are welcome to explore research opportunities.
+          </p>
+          <p>
+            Our research involves a combination of <strong>design, empirical research,
+            experimentation, and prototyping</strong>. Students are encouraged to
+            develop their own research questions and pursue them through rigorous investigation.
+          </p>
+          <p>If you are interested in joining the lab, please send:</p>
+          <ul>
+            <li>a brief introduction</li>
+            <li>your CV or portfolio</li>
+            <li>a description of your research interests</li>
+          </ul>
+          <a class="button" href="mailto:yahsinhung@gs.ncku.edu.tw">Get in Touch</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="eyebrow" style="color:#aaa99f;">Contact</div>
+          <h2>Contact</h2>
+        </div>
+        <div class="contact-list">
+          <div class="contact-item">
+            <span>Email</span>
+            <a href="mailto:yahsinhung@gs.ncku.edu.tw">yahsinhung@gs.ncku.edu.tw</a>
+          </div>
+          <div class="contact-item">
+            <span>Office</span>
+            <span>Ext. 54337</span>
+          </div>
+          <div class="contact-item">
+            <span>Google Scholar</span>
+            <a href="https://scholar.google.com/citations?user=cdkpOysAAAAJ&amp;hl=zh-TW" target="_blank" rel="noopener">View profile ↗</a>
+          </div>
+          <div class="contact-item">
+            <span>Office Location</span>
+            <a href="https://maps.app.goo.gl/6ojXwEjhcqPYpz7c6" target="_blank" rel="noopener">Google Maps ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>Ya-Hsin Hung Lab · Department of Industrial Design · National Cheng Kung University</span>
+        <span>Human First. Technology Follows.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
